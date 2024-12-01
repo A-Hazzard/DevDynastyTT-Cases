@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CaseCobra - Custom Phone Case Designer
+
+A modern e-commerce platform for designing and ordering custom phone cases. Users can upload their images, customize case designs, and order high-quality phone cases with their personalized artwork.
+
+## Features
+
+- **Custom Case Designer**: Interactive tool for uploading and positioning images on phone cases
+- **Multiple Phone Models**: Support for various iPhone models (iPhone X through iPhone 15)
+- **Case Customization**:
+  - Multiple materials (silicone, polycarbonate)
+  - Various finishes (smooth, textured)
+  - Color options (black, blue, rose)
+- **Real-time Preview**: Live visualization of your custom case design
+- **Secure Checkout**: Integrated with Stripe for secure payments
+- **Order Management**: Track orders from payment to shipment
+- **User Authentication**: Secure login via Kinde Auth
+- **Image Processing**: Advanced image handling with sharp and uploadthing
+- **Responsive Design**: Seamless experience across all devices
+
+## Tech Stack
+
+### Frontend
+- **Framework**: Next.js 14 with React 18
+- **Styling**: 
+  - Tailwind CSS for responsive design
+  - Radix UI for accessible components
+  - Framer Motion for animations
+- **State Management**: TanStack Query
+- **Image Handling**: 
+  - Sharp for image processing
+  - UploadThing for file uploads
+  - React Dropzone for drag-and-drop
+
+### Backend
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: Kinde Auth
+- **Payment Processing**: Stripe
+- **Email**: Resend for transactional emails
+- **Image Storage**: UploadThing
 
 ## Getting Started
 
-First, run the development server:
-
+1. Clone the repository
+2. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Set up environment variables:
+```env
+DATABASE_URL="your-postgresql-url"
+KINDE_CLIENT_ID="your-kinde-client-id"
+KINDE_CLIENT_SECRET="your-kinde-client-secret"
+KINDE_ISSUER_URL="your-kinde-issuer-url"
+KINDE_SITE_URL="your-site-url"
+KINDE_POST_LOGIN_REDIRECT_URL="your-redirect-url"
+KINDE_POST_LOGOUT_REDIRECT_URL="your-logout-redirect-url"
+UPLOADTHING_SECRET="your-uploadthing-secret"
+UPLOADTHING_APP_ID="your-uploadthing-app-id"
+STRIPE_SECRET_KEY="your-stripe-secret-key"
+STRIPE_WEBHOOK_SECRET="your-stripe-webhook-secret"
+RESEND_API_KEY="your-resend-api-key"
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. Initialize the database:
+```bash
+pnpm prisma generate
+pnpm prisma db push
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+5. Run the development server:
+```bash
+pnpm dev
+```
 
-## Learn More
+Visit [http://localhost:3000](http://localhost:3000) to see the application.
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `/src/app` - Next.js app router pages and API routes
+- `/src/components` - Reusable UI components
+  - `/ui` - Base UI components
+  - `/configure` - Case customization components
+- `/src/lib` - Utility functions and configurations
+- `/prisma` - Database schema and migrations
+- `/public` - Static assets
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Database Schema
 
-## Deploy on Vercel
+The application uses a relational database with the following main entities:
+- **Configuration**: Case design settings (size, image, color, model)
+- **User**: Customer information and authentication
+- **Order**: Purchase details and status
+- **ShippingAddress/BillingAddress**: Customer delivery information
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Development
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Built with Next.js 14 best practices:
+- Server Components for optimal performance
+- API Routes for backend functionality
+- Prisma for type-safe database queries
+- TanStack Query for efficient data fetching
+- Stripe integration for secure payments
+
+## Deployment
+
+The application is optimized for deployment on Vercel with:
+- Edge Functions support
+- Image optimization
+- Automatic HTTPS
+- Serverless PostgreSQL database support
